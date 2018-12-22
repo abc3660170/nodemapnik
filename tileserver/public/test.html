@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Leaflet Example</title>
+    <link rel="stylesheet" type="text/css" href="leaflet/leaflet.css" />
+    <script type="text/javascript" src="leaflet/leaflet-src.js"></script>
+    <script type="text/javascript">
+        var map;
+
+        function init() {
+            // 在一个DIV中创建地图对象
+            map = new L.Map('mapdiv');
+
+            // 创建瓦片图层
+ 	 var osmUrl="./t/map/{z}/{x}/{y}/tile.png";
+            var osmAttrib='Kingsmart Tech';
+            var osm = new L.TileLayer(osmUrl, {minZoom: 3, maxZoom: 18, attribution: osmAttrib});
+
+            // 地图中心设置为西北二环附近
+            //map.setView(new L.LatLng(31.9980 , 118.7068 ),15);
+            //map.setView(new L.LatLng(39.9310640 , 116.3481333),12);
+            map.setView(new L.LatLng(32.047417 , 118.781348),8);
+            map.addLayer(osm);//添加图层
+
+            //在地图上添加标记
+            var plot = {
+                "name":"金名科技",
+                "lon":"118.7177",
+                "lat":"31.9931",
+                "details":"金名科技是座落于海淀区高粱桥斜街59号院的高新技术企业"
+            };
+            var plotll = new L.LatLng( plot.lat, plot.lon, true );//标记的坐标
+            var mark = new L.Marker(plotll);
+            mark.data = plot;
+            map.addLayer(mark);//添加标记到地图
+            mark.bindPopup("<h4>" + plot.name + "</h4>" + plot.details);//绑定提示框
+
+            //在地图上添加一个多边形
+            var latlngs = [
+                new L.LatLng( 39.931064087073835, 116.3481330871582),
+                new L.LatLng( 39.9600172003783, 116.32684707641602),
+                new L.LatLng( 39.99264056247673, 116.37628555297852 ),
+                new L.LatLng( 39.97922477476731, 116.46417617797852 ),
+                new L.LatLng( 39.90657598772841, 116.45936965942383),
+                new L.LatLng( 39.87338459498892, 116.36838912963867),
+                new L.LatLng( 39.931064087073835, 116.3481330871582)
+            ];
+            var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+        }
+    </script>
+
+    <style>
+        html, body{ margin:0; height:100%; }
+        #mapdiv { width:100%; height:100%; }
+        div.olControlAttribution { bottom:3px; }
+    </style>
+
+</head>
+
+<body onload="init();">
+<div id="mapdiv"></div>
+</body>
+</html>
