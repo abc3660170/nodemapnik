@@ -1,6 +1,6 @@
 FROM abc3660170/osmstyle
 WORKDIR /home
-COPY tileserver ./
+COPY tileserver /home/tileserver
 COPY style_dark_transparent.xml openstreetmap-carto/
 WORKDIR /home/tileserver
 RUN npm install

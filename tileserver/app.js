@@ -16,9 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/t', server);
 
-var server_dark = require('./server/server_dark.js');
-app.use('/tsd', server_dark);
-
 var server_dark_transparent = require('./server/server_dark_transparent.js');
 app.use('/tsdt', server_dark_transparent);
 
